@@ -1,0 +1,10 @@
+services:
+  api:
+    command: ["node", "--watch", "src/server.js"]
+    volumes:
+      - ./api/src:/app/src
+  front:
+    build:
+      target: dev
+    ports: !override
+      - 8080:5173
