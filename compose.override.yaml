@@ -6,5 +6,7 @@ services:
   front:
     build:
       target: dev
+    environment:
+      API_URL: ${API_URL}
     ports: !override
       - 8080:5173
