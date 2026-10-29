@@ -20,4 +20,4 @@ jobs:
         - working-directory: api
           run: npm ci && npm test
           env:
-            DATABASE_URL: postgres://shorty:ci@localhost:5432/shorty
+            DATABASE_URL: postgres://shorty:${{env.DB_PASSWORD}}@db:5432/shorty
