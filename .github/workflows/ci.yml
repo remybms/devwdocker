@@ -22,3 +22,6 @@ jobs:
           env:
             DATABASE_URL: postgres://shorty:${{env.DB_PASSWORD}}@db:5432/shorty
         - run: docker compose -f compose.yaml build
+        - run: |
+            cat ${{ secrets.DOCKERHUB_TOKEN }} | docker login -u ${{env.DOCKERHUB_USERNAME}} --password-stdin 
+            docker compose push api front
