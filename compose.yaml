@@ -38,9 +38,7 @@ services:
     cap_drop: [ALL]
     security_opt: ["no-new-privileges:true"]
     tmpfs:
-      - /tmp
-      - /var/cache/nginx
-      - /run  
+      - /tmp 
 
 secrets:
   db_password:
