@@ -13,11 +13,11 @@ jobs:
         TAG: ${{ github.ref_name }}
     steps:
         - uses: actions/checkout@v7
-        - run: docker compose up -d --wait db
+        - run: docker compose up -d --wait
         - uses: actions/setup-node@v7 
           with:
             node-version: 22
         - working-directory: api
-          run: npm ci && npm test
+          run: docker compose exec api npm test
           env:
             DATABASE_URL: postgres://shorty:${{env.DB_PASSWORD}}@db:5432/shorty
