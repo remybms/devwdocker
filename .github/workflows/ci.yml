@@ -21,3 +21,4 @@ jobs:
           run: docker compose exec api npm test
           env:
             DATABASE_URL: postgres://shorty:${{env.DB_PASSWORD}}@db:5432/shorty
+        - run: docker compose -f compose.yaml build
