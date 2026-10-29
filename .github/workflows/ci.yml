@@ -11,6 +11,7 @@ jobs:
         DB_PASSWORD: ci
         DOCKERHUB_USERNAME: ${{ vars.DOCKERHUB_USERNAME }}
         TAG: ${{ github.ref_name }}
+        DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
     steps:
         - uses: actions/checkout@v7
         - run: docker compose up -d --wait
@@ -23,5 +24,5 @@ jobs:
             DATABASE_URL: postgres://shorty:${{env.DB_PASSWORD}}@db:5432/shorty
         - run: docker compose -f compose.yaml build
         - run: |
-            cat ${{ secrets.DOCKERHUB_TOKEN }} | docker login -u ${{env.DOCKERHUB_USERNAME}} --password-stdin 
+            echo ${{env.DOCKERHUB_TOKEN}} | docker login -u ${{env.DOCKERHUB_USERNAME}} --password-stdin 
             docker compose push api front
