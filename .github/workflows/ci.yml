@@ -1,0 +1,23 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+    env:
+        DB_PASSWORD: ci
+        DOCKERHUB_USERNAME: ${{ vars.DOCKERHUB_USERNAME }}
+        TAG: ${{ github.ref_name }}
+    steps:
+        - uses: actions/checkout@v7
+        - run: docker compose up -d --wait db
+        - uses: actions/setup-node@v7 
+          with:
+            node-version: 22
+        - working-directory: api
+          run: npm ci && npm test
+          env:
+            DATABASE_URL: postgres://shorty:ci@localhost:5432/shorty

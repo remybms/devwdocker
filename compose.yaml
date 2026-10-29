@@ -26,6 +26,8 @@ services:
     read_only: true
     cap_drop: [ALL]
     security_opt: ["no-new-privileges:true"]
+    image:
+      ${DOCKERHUB_USERNAME}/shorty-api:${TAG}
 
   front:
     depends_on:
@@ -38,7 +40,9 @@ services:
     cap_drop: [ALL]
     security_opt: ["no-new-privileges:true"]
     tmpfs:
-      - /tmp 
+      - /tmp
+    image:
+      ${DOCKERHUB_USERNAME}/shorty-front:${TAG}
 
 secrets:
   db_password:
